@@ -156,6 +156,3 @@ reservas-lab/
    ```
 5. Abra um Pull Request
 
-## Licença
-
-[MIT License](LICENSE)
