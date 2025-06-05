@@ -1,11 +1,14 @@
 package com.fsu.reservas_lab.entities;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fsu.reservas_lab.entities.enums.StatusReserva;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -16,66 +19,33 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Reserva {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id_reserva")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_laboratorio", nullable = false)
-    @NotNull
+    @JoinColumn(name = "laboratorio_id", nullable = false)
     private Laboratorio laboratorio;
 
     @ManyToOne
-    @JoinColumn(name = "id_professor", nullable = false)
-    @NotNull
-    private Professor professor;
+    @JoinColumn(name = "turma_id", nullable = false)
+    private Turma turma;
 
-    @Column(name = "nome_disciplina", nullable = false)
-    @NotNull
-    private String nomeDisciplina;
+    @ManyToOne
+    @JoinColumn(name = "professor_id", nullable = false)
+    private Usuario professor;
 
-    @Column(name = "periodo_reserva", nullable = false)
-    @NotNull
-    private String periodoReserva; // Armazena JSON como texto
+    @Column(nullable = false)
+    private LocalDate data;
 
-    @Transient // Não persiste no banco
-    private String[] periodoReservaArray;
+    @Column(nullable = false)
+    private LocalTime horario;
 
-    @Column(name = "dia_reserva", nullable = false)
-    @NotNull
-    private LocalDate diaReserva;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private StatusReserva status;
 
-    @Column(name = "horario_reserva", nullable = false)
-    @NotNull
-    private LocalDateTime horarioReserva;
+    private String observacoes;
 
-    @Column(name = "roteiros_reserva")
-    private byte[] roteirosReserva;
-
-    // Converte String[] para JSON antes de salvar
-    @PrePersist
-    @PreUpdate
-    public void serializePeriodoReserva() {
-        if (periodoReservaArray != null) {
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                periodoReserva = mapper.writeValueAsString(periodoReservaArray);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException("Erro ao serializar periodo_reserva", e);
-            }
-        }
-    }
-
-    // Converte JSON para String[] após carregar
-    @PostLoad
-    public void deserializePeriodoReserva() {
-        if (periodoReserva != null) {
-            try {
-                ObjectMapper mapper = new ObjectMapper();
-                periodoReservaArray = mapper.readValue(periodoReserva, String[].class);
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException("Erro ao desserializar periodo_reserva", e);
-            }
-        }
-    }
+    @OneToMany(mappedBy = "reserva")
+    private List<AprovacaoReserva> aprovacoes;
 }
