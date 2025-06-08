@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "reserva")
+@Table(name = "reservas")
 @Getter
 @Setter
 @AllArgsConstructor

@@ -1,6 +1,6 @@
 package com.fsu.reservas_lab.entities;
 
-import com.fsu.reservas_lab.entities.enums.AreaLaboratorio;
+import com.fsu.reservas_lab.entities.enums.TipoCurso;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,10 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.UUID;
 
 @Entity
-@Table(name = "laboratorio")
+@Table(name = "laboratorios")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -32,7 +31,7 @@ public class Laboratorio {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private AreaLaboratorio area;
+    private TipoCurso area;
 
     @ManyToOne
     @JoinColumn(name = "coordenador_id", nullable = false)

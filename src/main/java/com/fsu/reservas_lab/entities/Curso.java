@@ -1,10 +1,19 @@
 package com.fsu.reservas_lab.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
+@Table(name = "cursos")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Curso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

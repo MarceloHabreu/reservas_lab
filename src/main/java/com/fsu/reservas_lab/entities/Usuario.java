@@ -1,18 +1,22 @@
 package com.fsu.reservas_lab.entities;
 
+import com.fsu.reservas_lab.dtos.auth.LoginRequest;
 import com.fsu.reservas_lab.entities.enums.TipoUsuario;
+import com.fsu.reservas_lab.entities.converters.TipoUsuarioConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
-@Table(name = "usuario")
+@Table(name = "usuarios")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -31,9 +35,20 @@ public class Usuario {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private String senha;
+
+    @Convert(converter = TipoUsuarioConverter.class)
     @Column(nullable = false)
     private TipoUsuario tipo;
+
+    @CreationTimestamp
+    @Column(nullable = false, name = "registrado_em")
+    private LocalDateTime registradoEm;
+
+    @UpdateTimestamp
+    @Column(nullable = false, name = "atualizado_em")
+    private LocalDateTime atualizadoEm;
 
     @ManyToOne
     @JoinColumn(name = "curso_id")
@@ -58,4 +73,8 @@ public class Usuario {
 
     @OneToMany(mappedBy = "aprovador")
     private List<AprovacaoReserva> aprovacoes;
+
+    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequest.senha(), this.senha);
+    }
 }

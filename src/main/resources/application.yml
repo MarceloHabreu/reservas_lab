@@ -9,3 +9,9 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+
+jwt:
+  public:
+    key: ${JWT_PUBLIC_KEY}
+  private:
+    key: ${JWT_PRIVATE_KEY}

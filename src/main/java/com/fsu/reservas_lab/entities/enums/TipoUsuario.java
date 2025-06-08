@@ -1,8 +1,5 @@
 package com.fsu.reservas_lab.entities.enums;
 
-import jakarta.persistence.AttributeConverter;
-import jakarta.persistence.Converter;
-
 public enum TipoUsuario {
     PROFESSOR(1, "professor"),
     COORDENADOR_LAB(2, "coordenador_lab"),
@@ -29,15 +26,3 @@ public enum TipoUsuario {
     }
 }
 
-@Converter(autoApply = true)
-class TipoUsuarioConverter implements AttributeConverter<TipoUsuario, String> {
-    @Override
-    public String convertToDatabaseColumn(TipoUsuario tipo) {
-        return tipo != null ? tipo.getDbValue() : null;
-    }
-
-    @Override
-    public TipoUsuario convertToEntityAttribute(String dbData) {
-        return dbData != null ? TipoUsuario.fromDbValue(dbData) : null;
-    }
-}

@@ -2,7 +2,7 @@
 CREATE TABLE cursos (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100) NOT NULL,
-    codigo VARCHAR(10) UNIQUE NOT NULL
+    codigo VARCHAR(100) UNIQUE NOT NULL
 );
 
 -- Tabela Usuarios

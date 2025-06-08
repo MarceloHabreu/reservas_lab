@@ -2,10 +2,19 @@ package com.fsu.reservas_lab.entities;
 
 import com.fsu.reservas_lab.entities.enums.TipoAprovacao;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "aprovacoes_reservas")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class AprovacaoReserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

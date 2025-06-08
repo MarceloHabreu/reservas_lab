@@ -1,0 +1,15 @@
+INSERT INTO cursos (nome, codigo) VALUES
+('Análise e Desenvolvimento de Sistemas', 'ads'),
+('Arquitetura e Urbanismo', 'arquitetura_urbanismo'),
+('Enfermagem', 'enfermagem'),
+('Radiologia', 'radiologia'),
+('Administração', 'administracao'),
+('Biomedicina', 'biomedicina'),
+('Design de Moda', 'design_moda'),
+('Direito', 'direito'),
+('Educação Física', 'educ_fisica'),
+('Engenharia Civil', 'eng_civil'),
+('Engenharia Elétrica', 'eng_eletrica'),
+('Estética e Cosmética', 'estetica_cosmetica'),
+('Farmácia', 'farmacia'),
+('Odontologia', 'odontologia');
