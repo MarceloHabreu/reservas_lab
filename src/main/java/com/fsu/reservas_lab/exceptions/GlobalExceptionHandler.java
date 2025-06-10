@@ -1,9 +1,11 @@
 package com.fsu.reservas_lab.exceptions;
 
+import com.fsu.reservas_lab.exceptions.curso.CourseAlreadyExistsException;
 import com.fsu.reservas_lab.exceptions.curso.CourseNotFoundException;
 import com.fsu.reservas_lab.exceptions.usuario.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -33,16 +35,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
-    @ExceptionHandler(CustomAccessDeniedException.class)
-    public ResponseEntity<Map<String, Object>> handleCustomAccessDeniedException(CustomAccessDeniedException ex) {
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Map<String, Object>> handleCustomAccessDeniedException(AccessDeniedException ex) {
         Map<String, Object> response = new HashMap<>();
-        response.put("error", ex.getMessage());
+        response.put("error", "Você não tem permissão para esta ação no sistema.");
         response.put("timestamp", getCurrentTimestamp());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
     }
 
     @ExceptionHandler(NameAlreadyExistsException.class)
-    public ResponseEntity<Map<String, String>> handleNameExists(NameAlreadyExistsException ex) {
+    public ResponseEntity<Map<String, String>> handleNameExistsException(NameAlreadyExistsException ex) {
         Map<String, String> response = new HashMap<>();
         response.put("error", ex.getMessage());
         response.put("timestamp", getCurrentTimestamp());
@@ -82,12 +84,20 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
+    @ExceptionHandler(CourseAlreadyExistsException.class)
+    public ResponseEntity<Map<String, Object>> handleCourseAlreadyExistsException(CourseAlreadyExistsException ex) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("error", ex.getMessage());
+        response.put("timestamp", getCurrentTimestamp());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
 
     // Generics
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> handleGenericException(Exception ex) {
         Map<String, Object> response = new HashMap<>();
-        response.put("error", "An unexpected error occurred.");
+        response.put("error", "Erro inesperado.");
         response.put("details", ex.getMessage());
         response.put("timestamp", getCurrentTimestamp());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
