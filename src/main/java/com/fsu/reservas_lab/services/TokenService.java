@@ -49,7 +49,7 @@ public class TokenService {
 
         var claims = JwtClaimsSet.builder()
                 .issuer("reservas-lab-facema")
-                .subject(usuario.getId().toString())
+                .subject(usuario.getEmail())
                 .audience(List.of("reservas-laboratorios-facema-api"))
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(expiresIn))

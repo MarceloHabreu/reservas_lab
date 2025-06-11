@@ -1,14 +1,13 @@
 package com.fsu.reservas_lab.services;
 
-import com.fsu.reservas_lab.dtos.CursoResultResponse;
-import com.fsu.reservas_lab.dtos.CursoCreateRequest;
-import com.fsu.reservas_lab.dtos.CursoResponse;
-import com.fsu.reservas_lab.dtos.CursoUpdateRequest;
+import com.fsu.reservas_lab.dtos.curso.CursoResultResponse;
+import com.fsu.reservas_lab.dtos.curso.CursoCreateRequest;
+import com.fsu.reservas_lab.dtos.curso.CursoResponse;
+import com.fsu.reservas_lab.dtos.curso.CursoUpdateRequest;
 import com.fsu.reservas_lab.entities.Curso;
 import com.fsu.reservas_lab.exceptions.curso.CourseAlreadyExistsException;
 import com.fsu.reservas_lab.exceptions.curso.CourseNotFoundException;
 import com.fsu.reservas_lab.repositories.CursoRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

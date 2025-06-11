@@ -35,10 +35,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 
-    @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<Map<String, Object>> handleCustomAccessDeniedException(AccessDeniedException ex) {
+    @ExceptionHandler(CustomAccessDeniedException.class)
+    public ResponseEntity<Map<String, Object>> handleCustomAccessDeniedException(CustomAccessDeniedException ex) {
         Map<String, Object> response = new HashMap<>();
-        response.put("error", "Você não tem permissão para esta ação no sistema.");
+        response.put("error", "Você não tem permissões suficiente para esta ação");
         response.put("timestamp", getCurrentTimestamp());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
     }

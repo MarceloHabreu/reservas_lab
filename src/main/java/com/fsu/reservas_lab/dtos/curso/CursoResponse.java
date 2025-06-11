@@ -1,4 +1,4 @@
-package com.fsu.reservas_lab.dtos;
+package com.fsu.reservas_lab.dtos.curso;
 
 import com.fsu.reservas_lab.entities.Curso;
 

@@ -2,7 +2,6 @@ package com.fsu.reservas_lab.config;
 
 import com.fsu.reservas_lab.entities.Curso;
 import com.fsu.reservas_lab.entities.Usuario;
-import com.fsu.reservas_lab.entities.enums.TipoCurso;
 import com.fsu.reservas_lab.entities.enums.TipoUsuario;
 import com.fsu.reservas_lab.exceptions.curso.CourseNotFoundException;
 import com.fsu.reservas_lab.repositories.CursoRepository;

@@ -1,9 +1,9 @@
 package com.fsu.reservas_lab.controllers;
 
-import com.fsu.reservas_lab.dtos.CursoCreateRequest;
-import com.fsu.reservas_lab.dtos.CursoResultResponse;
-import com.fsu.reservas_lab.dtos.CursoResponse;
-import com.fsu.reservas_lab.dtos.CursoUpdateRequest;
+import com.fsu.reservas_lab.dtos.curso.CursoCreateRequest;
+import com.fsu.reservas_lab.dtos.curso.CursoResultResponse;
+import com.fsu.reservas_lab.dtos.curso.CursoResponse;
+import com.fsu.reservas_lab.dtos.curso.CursoUpdateRequest;
 import com.fsu.reservas_lab.services.CursoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
