@@ -1,4 +1,4 @@
-package com.fsu.reservas_lab.dtos.usuarios;
+package com.fsu.reservas_lab.dtos.usuario;
 
 import com.fsu.reservas_lab.entities.enums.TipoUsuario;
 import jakarta.validation.constraints.Email;

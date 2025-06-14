@@ -1,9 +1,9 @@
 package com.fsu.reservas_lab.services;
 
-import com.fsu.reservas_lab.dtos.usuarios.UsuarioCreateRequest;
-import com.fsu.reservas_lab.dtos.usuarios.UsuarioResponse;
-import com.fsu.reservas_lab.dtos.usuarios.UsuarioResultResponse;
-import com.fsu.reservas_lab.dtos.usuarios.UsuarioUpdateRequest;
+import com.fsu.reservas_lab.dtos.usuario.UsuarioCreateRequest;
+import com.fsu.reservas_lab.dtos.usuario.UsuarioResponse;
+import com.fsu.reservas_lab.dtos.usuario.UsuarioResultResponse;
+import com.fsu.reservas_lab.dtos.usuario.UsuarioUpdateRequest;
 import com.fsu.reservas_lab.entities.Curso;
 import com.fsu.reservas_lab.entities.Usuario;
 import com.fsu.reservas_lab.entities.enums.TipoUsuario;
@@ -137,6 +137,50 @@ public class UsuarioService {
         response.put("message", "Usuário deletado com sucesso");
         return ResponseEntity.ok(response);
     }
+
+    @Transactional
+    public ResponseEntity<UsuarioResultResponse> updateOwnAccount(UsuarioUpdateRequest dto, String currentUserEmail) {
+        Usuario usuario = usuarioRepository.findByEmail(currentUserEmail)
+                .orElseThrow(UserNotFoundException::new);
+
+        // Verificar se há alteração no email antes de validar duplicidade
+        if (dto.email() != null && !dto.email().equals(usuario.getEmail())) {
+            if (usuarioRepository.findByEmail(dto.email()).isPresent()) {
+                throw new EmailAlreadyExistsException();
+            }
+            usuario.setEmail(dto.email()); // Só altera se for diferente
+        }
+
+        // Verificar duplicidade de matrícula
+        if (dto.matricula() != null && !dto.matricula().equals(usuario.getMatricula()) &&
+                usuarioRepository.findByMatricula(dto.matricula()).isPresent()) {
+            throw new EnrollmentAlreadyExistsException();
+        }
+
+        // Atualizar curso, se fornecido
+        Curso curso = null;
+        if (dto.cursoId() != null) {
+            curso = cursoRepository.findById(dto.cursoId())
+                    .orElseThrow(() -> new CourseNotFoundException());
+        }
+
+        usuario.setNome(dto.nome());
+
+        // Atualizar senha apenas se for enviada e não estiver vazia
+        if (dto.senha() != null && !dto.senha().isBlank()) {
+            usuario.setSenha(passwordEncoder.encode(dto.senha()));
+        }
+
+        usuario.setMatricula(dto.matricula());
+        usuario.setCurso(curso);
+
+        usuario = usuarioRepository.save(usuario);
+
+        var response = new UsuarioResultResponse("Perfil atualizado com sucesso.", UsuarioResponse.fromEntity(usuario));
+
+        return ResponseEntity.ok(response);
+    }
+
 
     @Transactional
     public ResponseEntity<Void> deleteOwnAccount(String currentUserEmail) {

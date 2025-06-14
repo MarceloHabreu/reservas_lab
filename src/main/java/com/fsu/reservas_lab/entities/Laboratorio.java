@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,19 +30,21 @@ public class Laboratorio {
     @Column(nullable = false)
     private String localizacao;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TipoCurso area;
 
     @ManyToOne
     @JoinColumn(name = "coordenador_id", nullable = false)
     private Usuario coordenador;
 
-    @ManyToMany(mappedBy = "laboratoriosComoTecnico")
+    @ManyToMany
+    @JoinTable(
+            name = "tecnicos_laboratorios",
+            joinColumns = @JoinColumn(name = "laboratorio_id"),
+            inverseJoinColumns = @JoinColumn(name = "tecnico_id")
+    )
     private List<Usuario> tecnicos;
 
     @OneToMany(mappedBy = "laboratorio")
-    private List<Reserva> reservas;
+    private List<Reserva> reservas = new ArrayList<>();
 
     @OneToMany(mappedBy = "laboratorio")
     private List<ManutencaoLaboratorio> manutencoes;

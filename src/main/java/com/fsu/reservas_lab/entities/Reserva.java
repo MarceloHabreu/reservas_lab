@@ -1,15 +1,11 @@
 package com.fsu.reservas_lab.entities;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fsu.reservas_lab.entities.enums.StatusPedidoReserva;
 import com.fsu.reservas_lab.entities.enums.StatusReserva;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "reservas")
@@ -41,8 +37,12 @@ public class Reserva {
     private LocalTime horario;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private StatusReserva status;
+    @Column(nullable = false, name = "status_pedido_reserva")
+    private StatusPedidoReserva statusPedidoReserva;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "status_reserva")
+    private StatusReserva statusReserva;
 
     private String observacoes;
 

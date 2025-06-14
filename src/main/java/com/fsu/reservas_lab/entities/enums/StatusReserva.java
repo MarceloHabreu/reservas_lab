@@ -1,11 +1,8 @@
 package com.fsu.reservas_lab.entities.enums;
 
 public enum StatusReserva {
-    PENDENTE("pendente"),
-    APROVADO_LABORATORIO("aprovado_laboratorio"),
-    APROVADO_CURSO("aprovado_curso"),
-    APROVADO("aprovado"),
-    REJEITADA("rejeitada");
+    ATIVA("ativa"),
+    INATIVA("inativa");
 
     private final String dbValue;
 
@@ -14,6 +11,7 @@ public enum StatusReserva {
     }
 
     public String getDbValue() { return dbValue; }
+
     public static StatusReserva fromDbValue(String dbValue) {
         for (StatusReserva status : values()) {
             if (status.dbValue.equals(dbValue)) return status;
@@ -21,4 +19,3 @@ public enum StatusReserva {
         throw new IllegalArgumentException("Status inválido: " + dbValue);
     }
 }
-

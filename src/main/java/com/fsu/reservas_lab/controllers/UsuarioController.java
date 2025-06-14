@@ -1,9 +1,9 @@
 package com.fsu.reservas_lab.controllers;
 
-import com.fsu.reservas_lab.dtos.usuarios.UsuarioCreateRequest;
-import com.fsu.reservas_lab.dtos.usuarios.UsuarioResponse;
-import com.fsu.reservas_lab.dtos.usuarios.UsuarioResultResponse;
-import com.fsu.reservas_lab.dtos.usuarios.UsuarioUpdateRequest;
+import com.fsu.reservas_lab.dtos.usuario.UsuarioCreateRequest;
+import com.fsu.reservas_lab.dtos.usuario.UsuarioResponse;
+import com.fsu.reservas_lab.dtos.usuario.UsuarioResultResponse;
+import com.fsu.reservas_lab.dtos.usuario.UsuarioUpdateRequest;
 import com.fsu.reservas_lab.entities.enums.TipoUsuario;
 import com.fsu.reservas_lab.services.UsuarioService;
 import jakarta.validation.Valid;
@@ -26,7 +26,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    @PreAuthorize("hasAuthority('SCOPE_REITORIA')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_COORDENADOR_LAB', 'SCOPE_REITORIA')")
     public ResponseEntity<UsuarioResultResponse> createUsuario(@Valid @RequestBody UsuarioCreateRequest dto) {
         return usuarioService.createUsuario(dto);
     }
@@ -44,6 +44,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('SCOPE_REITORIA')")
     public ResponseEntity<UsuarioResultResponse> updateUsuario(
             @PathVariable Long id,
             @Valid @RequestBody UsuarioUpdateRequest dto,
@@ -52,10 +53,17 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('SCOPE_COORDENADOR_LAB', 'SCOPE_REITORIA')")
     public ResponseEntity<Map<String, String>> deleteUsuario(
             @PathVariable Long id,
             JwtAuthenticationToken token) {
         return usuarioService.deleteUsuario(id, token.getName());
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<UsuarioResultResponse> updateOwnAccount(@Valid @RequestBody UsuarioUpdateRequest dto,
+                                                 JwtAuthenticationToken token) {
+        return usuarioService.updateOwnAccount(dto, token.getName());
     }
 
     @DeleteMapping("/me")

@@ -1,4 +1,4 @@
-package com.fsu.reservas_lab.dtos.usuarios;
+package com.fsu.reservas_lab.dtos.usuario;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
