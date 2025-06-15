@@ -4,6 +4,7 @@ import com.fsu.reservas_lab.dtos.laboratorio.LaboratorioCreateRequest;
 import com.fsu.reservas_lab.dtos.laboratorio.LaboratorioResponse;
 import com.fsu.reservas_lab.dtos.laboratorio.LaboratorioResultResponse;
 import com.fsu.reservas_lab.dtos.laboratorio.LaboratorioUpdateRequest;
+import com.fsu.reservas_lab.entities.enums.StatusLaboratorio;
 import com.fsu.reservas_lab.services.LaboratorioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,8 +35,8 @@ public class LaboratorioController {
     }
 
     @GetMapping
-    public ResponseEntity<List<LaboratorioResponse>> getAllLaboratories() {
-        return laboratorioService.getAllLaboratories();
+    public ResponseEntity<List<LaboratorioResponse>> getAllLaboratories(@RequestParam(required = false) StatusLaboratorio status) {
+        return laboratorioService.getLaboratories(status);
     }
 
     @PutMapping("/{id}")

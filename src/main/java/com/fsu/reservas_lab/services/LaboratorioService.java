@@ -6,6 +6,8 @@ import com.fsu.reservas_lab.dtos.laboratorio.LaboratorioResultResponse;
 import com.fsu.reservas_lab.dtos.laboratorio.LaboratorioUpdateRequest;
 import com.fsu.reservas_lab.entities.Laboratorio;
 import com.fsu.reservas_lab.entities.Usuario;
+import com.fsu.reservas_lab.entities.enums.StatusLaboratorio;
+import com.fsu.reservas_lab.entities.enums.StatusReserva;
 import com.fsu.reservas_lab.exceptions.laboratorio.LaboratoryActiveReservationsException;
 import com.fsu.reservas_lab.exceptions.laboratorio.LaboratoryAlreadyExistsException;
 import com.fsu.reservas_lab.exceptions.laboratorio.LaboratoryNotFoundException;
@@ -69,8 +71,8 @@ public class LaboratorioService {
         return ResponseEntity.ok(LaboratorioResponse.fromEntity(laboratorio));
     }
 
-    public ResponseEntity<List<LaboratorioResponse>> getAllLaboratories() {
-        List<LaboratorioResponse> laboratorios = laboratorioRepository.findAll()
+    public ResponseEntity<List<LaboratorioResponse>> getLaboratories(StatusLaboratorio status) {
+        List<LaboratorioResponse> laboratorios = laboratorioRepository.findByStatus(status)
                 .stream()
                 .map(LaboratorioResponse::fromEntity)
                 .toList();

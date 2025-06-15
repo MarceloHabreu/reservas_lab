@@ -1,5 +1,6 @@
 package com.fsu.reservas_lab.entities;
 
+import com.fsu.reservas_lab.entities.enums.StatusLaboratorio;
 import com.fsu.reservas_lab.entities.enums.TipoCurso;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -42,6 +43,11 @@ public class Laboratorio {
             inverseJoinColumns = @JoinColumn(name = "tecnico_id")
     )
     private List<Usuario> tecnicos;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "status_laboratorio")
+    private StatusLaboratorio statusLaboratorio = StatusLaboratorio.DISPONIVEL;
+
 
     @OneToMany(mappedBy = "laboratorio")
     private List<Reserva> reservas = new ArrayList<>();
