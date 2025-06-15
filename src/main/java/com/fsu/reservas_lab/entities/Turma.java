@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -25,8 +26,6 @@ public class Turma {
     @Column(nullable = false)
     private String disciplina;
 
-    @Column(nullable = false)
-    private String horario;
 
     @ManyToOne
     @JoinColumn(name = "curso_id", nullable = false)
@@ -34,6 +33,13 @@ public class Turma {
 
     @Column(nullable = false)
     private String periodoLetivo;
+
+    @ManyToOne
+    @JoinColumn(name = "professor_id", nullable = false)
+    private Usuario professor;
+
+    @Column(name = "numero_alunos", nullable = false)
+    private Integer numeroAlunos;
 
     @OneToMany(mappedBy = "turma")
     private List<Reserva> reservas;

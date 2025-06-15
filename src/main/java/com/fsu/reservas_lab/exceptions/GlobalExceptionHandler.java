@@ -5,6 +5,9 @@ import com.fsu.reservas_lab.exceptions.curso.CourseNotFoundException;
 import com.fsu.reservas_lab.exceptions.laboratorio.LaboratoryActiveReservationsException;
 import com.fsu.reservas_lab.exceptions.laboratorio.LaboratoryAlreadyExistsException;
 import com.fsu.reservas_lab.exceptions.laboratorio.LaboratoryNotFoundException;
+import com.fsu.reservas_lab.exceptions.turma.ClassAlreadyExistsException;
+import com.fsu.reservas_lab.exceptions.turma.ClassNotFoundException;
+import com.fsu.reservas_lab.exceptions.turma.TeacherNotAllowedException;
 import com.fsu.reservas_lab.exceptions.usuario.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -118,6 +121,31 @@ public class GlobalExceptionHandler {
         response.put("error", ex.getMessage());
         response.put("timestamp", getCurrentTimestamp());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
+    // Class
+    @ExceptionHandler(ClassNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleClassNotFoundException(ClassNotFoundException ex) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("error", ex.getMessage());
+        response.put("timestamp", getCurrentTimestamp());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(ClassAlreadyExistsException.class)
+    public ResponseEntity<Map<String, Object>> handleClassAlreadyExistsException(ClassAlreadyExistsException ex) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("error", ex.getMessage());
+        response.put("timestamp", getCurrentTimestamp());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+    }
+
+    @ExceptionHandler(TeacherNotAllowedException.class)
+    public ResponseEntity<Map<String, Object>> handleTeacherNotAllowedException(TeacherNotAllowedException ex) {
+        Map<String, Object> response = new HashMap<>();
+        response.put("error", ex.getMessage());
+        response.put("timestamp", getCurrentTimestamp());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
     }
 
     // Generics

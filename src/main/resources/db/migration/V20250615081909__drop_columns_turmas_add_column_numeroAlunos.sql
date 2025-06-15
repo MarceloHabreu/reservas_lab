@@ -1,0 +1,6 @@
+ALTER TABLE turmas
+DROP COLUMN data,
+DROP COLUMN horario;
+
+ALTER TABLE turmas
+ADD COLUMN numero_alunos INT NOT NULL DEFAULT 0;
