@@ -65,7 +65,7 @@ public class Usuario {
     )
     private List<Laboratorio> laboratoriosComoTecnico;
 
-    @OneToMany(mappedBy = "professor")
+    @OneToMany(mappedBy = "solicitante")
     private List<Reserva> reservas;
 
     @OneToMany(mappedBy = "tecnico")

@@ -26,7 +26,6 @@ public class Turma {
     @Column(nullable = false)
     private String disciplina;
 
-
     @ManyToOne
     @JoinColumn(name = "curso_id", nullable = false)
     private Curso curso;

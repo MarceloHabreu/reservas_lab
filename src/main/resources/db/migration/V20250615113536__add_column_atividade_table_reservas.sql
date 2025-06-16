@@ -1,0 +1,2 @@
+ALTER TABLE reservas
+ADD COLUMN atividade VARCHAR(255) NOT NULL;

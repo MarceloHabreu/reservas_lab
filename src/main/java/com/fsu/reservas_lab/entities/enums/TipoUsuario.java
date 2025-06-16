@@ -18,11 +18,13 @@ public enum TipoUsuario {
 
     public int getCodigo() { return codigo; }
     public String getDbValue() { return dbValue; }
-    public static TipoUsuario fromDbValue(String dbValue) {
-        for (TipoUsuario tipo : values()) {
-            if (tipo.dbValue.equals(dbValue)) return tipo;
+    public static TipoUsuario fromDbValue(String value) {
+        for (TipoUsuario tipo : TipoUsuario.values()) {
+            if (tipo.name().equalsIgnoreCase(value)) {
+                return tipo;
+            }
         }
-        throw new IllegalArgumentException("Tipo inválido: " + dbValue);
+        throw new IllegalArgumentException("Tipo inválido: " + value);
     }
 }
 

@@ -1,0 +1,1 @@
+ALTER TABLE reservas DROP COLUMN capacidade_alunos

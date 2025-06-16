@@ -1,9 +1,9 @@
 package com.fsu.reservas_lab.controllers;
 
-import com.fsu.reservas_lab.dtos.TurmaCreateRequest;
-import com.fsu.reservas_lab.dtos.TurmaResponse;
-import com.fsu.reservas_lab.dtos.TurmaResultResponse;
-import com.fsu.reservas_lab.dtos.TurmaUpdateRequest;
+import com.fsu.reservas_lab.dtos.turma.TurmaCreateRequest;
+import com.fsu.reservas_lab.dtos.turma.TurmaResponse;
+import com.fsu.reservas_lab.dtos.turma.TurmaResultResponse;
+import com.fsu.reservas_lab.dtos.turma.TurmaUpdateRequest;
 import com.fsu.reservas_lab.services.TurmaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

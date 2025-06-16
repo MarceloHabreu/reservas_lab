@@ -2,7 +2,9 @@ package com.fsu.reservas_lab.entities.enums;
 
 public enum StatusReserva {
     ATIVA("ativa"),
-    INATIVA("inativa");
+    CONCLUIDA("concluida"),
+    PENDENTE("pendente"),
+    CANCELADA("cancelada");
 
     private final String dbValue;
 

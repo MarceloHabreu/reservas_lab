@@ -1,10 +1,8 @@
-package com.fsu.reservas_lab.dtos;
+package com.fsu.reservas_lab.dtos.turma;
 
 import com.fsu.reservas_lab.dtos.curso.CursoResponse;
 import com.fsu.reservas_lab.dtos.usuario.UsuarioResponse;
 import com.fsu.reservas_lab.entities.Turma;
-
-import java.time.LocalDate;
 
 public record TurmaResponse(Long id, String codigo, String disciplina,Integer numeroAlunos, String periodoLetivo, CursoResponse curso, UsuarioResponse professor) {
     public static TurmaResponse fromEntity(Turma t){

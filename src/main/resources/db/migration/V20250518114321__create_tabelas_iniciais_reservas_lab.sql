@@ -16,6 +16,10 @@ CREATE TABLE usuarios (
     FOREIGN KEY (curso_id) REFERENCES cursos(id)
 );
 
+ALTER TABLE cursos ADD COLUMN coordenador_id BIGINT;
+ALTER TABLE cursos ADD CONSTRAINT fk_coordenador FOREIGN KEY (coordenador_id) REFERENCES usuarios(id);
+
+
 -- Tabela Laboratorios
 CREATE TABLE laboratorios (
     id BIGINT PRIMARY KEY AUTO_INCREMENT,

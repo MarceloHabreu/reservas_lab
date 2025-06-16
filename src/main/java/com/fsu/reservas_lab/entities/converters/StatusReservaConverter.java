@@ -1,18 +1,24 @@
 package com.fsu.reservas_lab.entities.converters;
 
 import com.fsu.reservas_lab.entities.enums.StatusPedidoReserva;
+import com.fsu.reservas_lab.entities.enums.StatusReserva;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
+
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
 @Converter(autoApply = true)
-class StatusReservaConverter implements AttributeConverter<StatusPedidoReserva, String> {
+public class StatusReservaConverter implements AttributeConverter<StatusReserva, String> {
+
     @Override
-    public String convertToDatabaseColumn(StatusPedidoReserva status) {
-        return status != null ? status.getDbValue() : null;
+    public String convertToDatabaseColumn(StatusReserva status) {
+        return status == null ? null : status.getDbValue();
     }
 
     @Override
-    public StatusPedidoReserva convertToEntityAttribute(String dbData) {
-        return dbData != null ? StatusPedidoReserva.fromDbValue(dbData) : null;
+    public StatusReserva convertToEntityAttribute(String dbData) {
+        if (dbData == null) return null;
+        return StatusReserva.fromDbValue(dbData);
     }
 }

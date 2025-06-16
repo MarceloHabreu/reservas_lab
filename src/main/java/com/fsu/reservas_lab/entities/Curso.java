@@ -25,6 +25,10 @@ public class Curso {
     @Column(nullable = false, unique = true)
     private String codigo;
 
+    @ManyToOne
+    @JoinColumn(name = "coordenador_id", nullable = false)
+    private Usuario coordenador;
+
     @OneToMany(mappedBy = "curso")
     private List<Usuario> usuarios;
 

@@ -1,9 +1,9 @@
 package com.fsu.reservas_lab.services;
 
-import com.fsu.reservas_lab.dtos.TurmaCreateRequest;
-import com.fsu.reservas_lab.dtos.TurmaResponse;
-import com.fsu.reservas_lab.dtos.TurmaResultResponse;
-import com.fsu.reservas_lab.dtos.TurmaUpdateRequest;
+import com.fsu.reservas_lab.dtos.turma.TurmaCreateRequest;
+import com.fsu.reservas_lab.dtos.turma.TurmaResponse;
+import com.fsu.reservas_lab.dtos.turma.TurmaResultResponse;
+import com.fsu.reservas_lab.dtos.turma.TurmaUpdateRequest;
 import com.fsu.reservas_lab.entities.Curso;
 import com.fsu.reservas_lab.entities.Turma;
 import com.fsu.reservas_lab.entities.Usuario;
@@ -91,7 +91,7 @@ public class TurmaService {
                 .orElseThrow(CourseNotFoundException::new);
         Usuario professor = usuarioRepository.findById(dto.professorId()).orElseThrow(() -> new UserNotFoundException("Professor não encontrado!"));
         if (!curso.getUsuarios().contains(professor)) {
-            throw new TeacherNotAllowedException("Esse professor não pertence ao curso!");
+            throw new TeacherNotAllowedException("Esse solicitante não pertence ao curso!");
         }
 
         turma.setCodigo(dto.codigo());
