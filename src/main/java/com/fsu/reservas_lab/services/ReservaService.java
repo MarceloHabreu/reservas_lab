@@ -97,11 +97,27 @@ public class ReservaService {
         reserva = reservaRepository.save(reserva);
 
         // 4. Criar 3 aprovações pendentes (ordem: laboratório → curso → reitoria)
-        List<TipoAprovacao> aprovacoes = List.of(
+        List<TipoAprovacao> etapas = List.of(
                 TipoAprovacao.COORDENADOR_LAB,
                 TipoAprovacao.COORDENADOR_CURSO,
                 TipoAprovacao.REITORIA
         );
+
+        Reserva finalReserva = reserva;
+        List<AprovacaoReserva> aprovacoesPendentes = etapas.stream()
+                .map(tipo -> {
+                    AprovacaoReserva aprovacao = new AprovacaoReserva();
+                    aprovacao.setReserva(finalReserva);
+                    aprovacao.setTipoAprovacao(tipo);
+                    aprovacao.setAprovado(false);
+                    aprovacao.setAprovador(null);
+                    aprovacao.setObservacoes(null);
+                    aprovacao.setDataHoraAprovacao(null);
+                    return aprovacao;
+                })
+                .toList();
+        aprovacaoReservaRepository.saveAll(aprovacoesPendentes);
+        reserva.setAprovacoes(aprovacoesPendentes); // Atualiza o lado dono do relacionamento
 
         var response = new ReservaResultResponse("Reserva criada, aguardando aprovação.", ReservaResponse.fromEntity(reserva));
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

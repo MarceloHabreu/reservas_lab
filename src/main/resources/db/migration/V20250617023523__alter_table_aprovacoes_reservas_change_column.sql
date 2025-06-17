@@ -1,0 +1,1 @@
+ALTER TABLE aprovacoes_reservas MODIFY aprovador_id BIGINT NULL;

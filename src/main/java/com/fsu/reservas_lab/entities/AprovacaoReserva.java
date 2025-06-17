@@ -1,5 +1,7 @@
 package com.fsu.reservas_lab.entities;
 
+import com.fsu.reservas_lab.entities.converters.StatusReservaConverter;
+import com.fsu.reservas_lab.entities.converters.TipoAprovacaoConverter;
 import com.fsu.reservas_lab.entities.enums.TipoAprovacao;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,7 +26,7 @@ public class AprovacaoReserva {
     @JoinColumn(name = "reserva_id", nullable = false)
     private Reserva reserva;
 
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = TipoAprovacaoConverter.class)
     @Column(nullable = false)
     private TipoAprovacao tipoAprovacao;
 

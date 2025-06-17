@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -61,6 +62,6 @@ public class Reserva {
     @Column(nullable = false, name = "criado_em")
     private LocalDateTime criadoEm;
 
-    @OneToMany(mappedBy = "reserva")
-    private List<AprovacaoReserva> aprovacoes;
+    @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AprovacaoReserva> aprovacoes = new ArrayList<>();
 }

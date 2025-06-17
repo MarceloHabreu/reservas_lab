@@ -48,7 +48,7 @@ public class ReservaController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('SCOPE_PROFESSOR')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_PROFESSOR', 'SCOPE_REITORIA')")
     public ResponseEntity<Map<String, String>> deleteReserva(@PathVariable Long id) {
         return reservaService.deleteReservation(id);
     }
@@ -64,7 +64,7 @@ public class ReservaController {
     }
 
     @PostMapping("/{id}/cancelar")
-    @PreAuthorize("hasAnyAuthority('SCOPE_PROFESSOR', 'SCOPE_COORDENADOR_LAB', 'SCOPE_COORDENADOR_CURSO', 'SCOPE_REITORIA')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_COORDENADOR_LAB', 'SCOPE_COORDENADOR_CURSO', 'SCOPE_REITORIA')")
     public ResponseEntity<ReservaResponse> cancelReserva(
             @PathVariable Long id,
             @RequestParam(required = false) String observacao, JwtAuthenticationToken token) {

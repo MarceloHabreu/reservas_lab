@@ -114,6 +114,7 @@ public class AprovacaoReservaService {
 
         if (todasAprovadas) {
             reserva.setStatusPedidoReserva(StatusPedidoReserva.APROVADO);
+            reserva.setStatusReserva(StatusReserva.ATIVA);
         } else {
             switch (tipoAprovacao) {
                 case COORDENADOR_LAB:
